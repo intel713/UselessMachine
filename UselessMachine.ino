@@ -1,18 +1,21 @@
 #include <Servo.h>
 Servo servo;
 
+int mode = 4; //모드 선택 핀 (일반 / 랜덤)
+int sw = 5; //스위치 핀
+
 void setup() {
   Serial.begin(9600);
   servo.attach(3);
   servo.write(150);
-  pinMode(4, INPUT_PULLUP);
-  pinMode(5, INPUT_PULLUP);
+  pinMode(mode, INPUT_PULLUP);
+  pinMode(sw, INPUT_PULLUP);
 }
 
 void loop() {
-  if (digitalRead(5) == HIGH)
+  if (digitalRead(sw) == HIGH)
   {
-    if (digitalRead(4) == LOW) {
+    if (digitalRead(mode) == LOW) {
       normal(3);
     }
     else{
@@ -27,7 +30,7 @@ void normal(int t)
     servo.write(i);
     delay(t);
   }
-  while (digitalRead(5) != LOW) {
+  while (digitalRead(sw) != LOW) {
       
   }
   for (int i = 35; i <= 150; i++) {
